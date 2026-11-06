@@ -1,0 +1,1 @@
+[{"run_id": "traffic-mid", "scenario": "mid", "method": "traffic", "seed": 0, "mode": "traces"}, {"run_id": "traffic-off_peak", "scenario": "off_peak", "method": "traffic", "seed": 0, "mode": "traces"}, {"run_id": "traffic-peak", "scenario": "peak", "method": "traffic", "seed": 0, "mode": "traces"}]

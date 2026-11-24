@@ -14,7 +14,7 @@ const STATS = [
 function subtitle(meta) {
   const times = { off_peak: "off-peak (11:00)", mid: "midday (15:00)", peak: "peak (08:00)" };
   if (meta.mode === "traces") return `${meta.map === "lust" ? "LuST" : meta.map} · ${times[meta.scenario] || meta.scenario} · ${meta.fleet} vehicles in ${meta.end} s`;
-  return `${meta.scenario} · seed ${meta.seed} · ${meta.mode === "testbed" ? "testbed" : "fast mode"}${meta.fleet ? ` · ${meta.fleet} cars` : ""}`;
+  return `${meta.scenario} · seed ${meta.seed} · ${meta.mode === "testbed" ? "testbed" : meta.mode === "live" ? "live testbed" : "fast mode"}${meta.fleet ? ` · ${meta.fleet} cars` : ""}`;
 }
 
 // MissingPane: a selected run that does not exist (yet), and why.
@@ -45,7 +45,7 @@ export class RunPane {
       <div class="canvas-wrap"></div>`;
     root.appendChild(this.el);
     this.statEls = Object.fromEntries([...this.el.querySelectorAll("[data-k]")].map((e) => [e.dataset.k, e]));
-    this.city = new CityView(this.el.querySelector(".canvas-wrap"), model, { onSelect: (hit) => onSelect(hit, this), speed });
+    this.city = new CityView(this.el.querySelector(".canvas-wrap"), model, { onSelect: (hit, ev) => onSelect(hit, this, ev), speed });
   }
   draw(t, sel) { this.city.draw(t, sel && sel.pane === this ? sel : null); }
   updateStats(t) {
